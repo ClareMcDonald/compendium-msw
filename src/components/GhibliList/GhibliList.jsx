@@ -1,30 +1,18 @@
-import { useEffect, useState } from 'react';
+import React from 'react'
 
-export default function GhibliList() {
-    const [loading, setLoading] = useState(true);
-    const [movies, setMovies] = useState([]);
-    const [search, setSearch] = useState('');
-    const [searchedMovies, setSearchedMovies] = useState([]);
-
-
-    useEffect(() => {
-        async function getMovies() {
-            const res = await fetch('https://ghibliapi.herokuapp.com/films');
-            const json = await res.json();
-            const movies = json.map((movie) => ({
-                image: movie.image,
-                title: movie.title,
-                originalTitle: movie.original_title,
-                director: movie.director,
-                releaseDate: movie.release_date,
-                description: movie.description
-            }))
-            console.log(movies);
-        }
-        getMovies();
-    }, []);
-
+export default function GhibliList({ movies }) {
   return (
-    <div>GhibliList</div>
+      movies.map((movie, i) => {
+          return (
+            <>
+                <h2>Title: {movie.title}</h2>
+                <h3>Original Title: {movie.originalTitle}</h3>
+                <img src={movie.image} alt='movie poster' height='400px' /> 
+                <h4>Director: {movie.director}</h4>
+                <p>Release Date: {movie.releaseDate}</p>
+                <p>Description: {movie.description}</p>
+            </>
+        )
+    })
   )
 }

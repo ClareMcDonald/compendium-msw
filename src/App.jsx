@@ -1,7 +1,7 @@
-import GhibliList from './components/GhibliList/GhibliList';
+import Home from './components/Home/Home';
 
 export default function App() {
   return (
-    <GhibliList />
+    <Home />
   )
 }
