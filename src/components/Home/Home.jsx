@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import GhibliList from '../GhibliList/GhibliList';
+import styles from './Home.css'
 
 export default function Home() {
     const [loading, setLoading] = useState(true);
@@ -7,7 +8,17 @@ export default function Home() {
     const [search, setSearch] = useState('');
     const [searchedMovies, setSearchedMovies] = useState([]);
 
+    function handleSubmit(e) {
+        e.preventDefault();
 
+        if (search) {
+            const filteredMovies = movies.filter(movie => movie.title.includes(search));
+            //add toLowerCase
+            console.log(filteredMovies);
+            setSearchedMovies(filteredMovies);
+        }
+    }
+    
     useEffect(() => {
         async function getMovies() {
             const res = await fetch('https://ghibliapi.herokuapp.com/films');
@@ -29,9 +40,21 @@ export default function Home() {
     return loading
         ? <h1>📽 Loading Movies 📽</h1>
         
-        : ( <>
-                <h1>Studio Ghibli Movies</h1>
-                <div>{<GhibliList movies={movies} />}</div>
+        : (<>
+            <form onSubmit={handleSubmit}>
+                <label>
+                    <input type='text' placeholder='search' value={search} onChange={e => setSearch(e.target.value)}></input>
+                </label>
+                <label>
+                <button>Submit</button>
+                </label>
+            </form>
+            <h1>Studio Ghibli Movies</h1>
+            {
+                searchedMovies.length
+                    ? <div className={styles['list']}>{<GhibliList movies={searchedMovies} />}</div>
+                    : <div className={styles['list']}>{<GhibliList movies={movies} />}</div>
+            }
             </>
   )
 }
