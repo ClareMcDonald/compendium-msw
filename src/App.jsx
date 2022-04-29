@@ -1,3 +1,7 @@
+import Home from './components/Home/Home';
+
 export default function App() {
-  return <h1>Hello World</h1>;
+  return (
+    <Home />
+  )
 }
