@@ -1,6 +1,7 @@
-import { screen, render, waitFor } from '@testing-library/react';
+import { screen, render, waitFor, waitForElementToBeRemoved } from '@testing-library/react';
 import { rest } from 'msw';
 import { setupServer } from 'msw/node';
+import userEvent from '@testing-library/user-event';
 import Home from './Home.jsx';
 
 const movie = [ {
@@ -29,5 +30,24 @@ describe('Home', () => {
             expect(name).toBeInTheDocument()
             expect(releaseDate).toBeInTheDocument();
         });
+    });
+
+    test('Should only display movies containing grave on grave search', async () => {
+        render(<Home />)
+        // return waitFor(() => {
+            screen.getByText(/loading/i);
+
+            const search = await screen.findByPlaceholderText('search');
+
+            const button = screen.getByRole('button');
+
+            userEvent.type(search, 'grave');
+
+            userEvent.click(button);
+
+            const result = await screen.findByText('Title: Grave of the Fireflies');
+            console.log(result);
+            expect(result.textContent).toEqual('Title: Grave of the Fireflies');
+        // });
     });
 });
