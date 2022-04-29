@@ -12,9 +12,8 @@ export default function Home() {
         e.preventDefault();
 
         if (search) {
-            const filteredMovies = movies.filter(movie => movie.title.includes(search));
-            //add toLowerCase
-            console.log(filteredMovies);
+            const filteredMovies = movies.filter(movie => movie.title.toLowerCase().includes(search));
+
             setSearchedMovies(filteredMovies);
         }
     }

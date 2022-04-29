@@ -7,3 +7,10 @@ body {
     flex-wrap: wrap;
     flex-direction: row;
 }
+
+.movie {
+    width: 400px;
+    margin: 30px;
+    padding: 10px;
+    border: solid 10px skyblue;
+}
