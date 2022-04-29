@@ -40,6 +40,7 @@ export default function Home() {
         ? <h1>📽 Loading Movies 📽</h1>
         
         : (<>
+            <h1>Studio Ghibli Movies</h1>
             <form onSubmit={handleSubmit}>
                 <label>
                     <input type='text' placeholder='search' value={search} onChange={e => setSearch(e.target.value)}></input>
@@ -48,7 +49,6 @@ export default function Home() {
                 <button>Submit</button>
                 </label>
             </form>
-            <h1>Studio Ghibli Movies</h1>
             {
                 searchedMovies.length
                     ? <div className={styles['list']}>{<GhibliList movies={searchedMovies} />}</div>
